@@ -666,7 +666,7 @@ function check(code){
 }
 function validate(){const el=document.getElementById('code');if(!el)return;const e=check(el.value.trim());document.getElementById('err').textContent=e||'';document.getElementById('submit').disabled=!(brand.length>=2&&e===null)}
 /* ===================== сохранение кода в Google Таблицу ===================== */
-const SHEET_URL=''; // адрес веб-приложения Apps Script (…/exec), см. sheet-apps-script.gs
+const SHEET_URL='https://script.google.com/macros/s/AKfycbyPq4j8Ef8QoaWJ29I17KuiTO2E7ZYnj23XZmnG7FAmdMeNhC0ixje6lQfBb-jluQ/exec'; // адрес веб-приложения Apps Script (…/exec), см. sheet-apps-script.gs
 const VISIT=Math.random().toString(36).slice(2,10)+Date.now().toString(36);
 const VARIANT='game-12brands-shop';
 function saveToSheet(d){ if(!SHEET_URL) return;
