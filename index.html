@@ -258,7 +258,7 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:#9fd8f
 .lvl{display:none!important}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNG605KE2R"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-VNG605KE2R',{variant:'var6',prototype:'game-12brands-shop',page_title:'Страна промиков · var6 · игра, 12 брендов, с лавкой'});</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-VNG605KE2R',{variant:'var6',prototype:'game-12brands-noshop',page_title:'Страна промиков · var6 · игра, 12 брендов, без лавки'});</script>
 </head>
 <body>
 <div class="wrap">
@@ -286,14 +286,12 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:#9fd8f
     <div class="hud">
       <div class="lvl" title="Уровень" onclick="lvlInfo()" style="cursor:pointer"><svg width="40" height="40" viewBox="-20 -38 40 40" id="lvlArt"></svg><b>1</b></div>
       <button class="hpill" onclick="coinInfo()"><svg width="24" height="24" viewBox="-12 -12 24 24" class="coin"></svg><span id="coins">0</span></button>
-      <div class="hpill" style="padding-right:12px" onclick="gemInfo()"><img id="gemHud" style="height:24px"><span id="gems">0</span></div>
       <span style="flex:1"></span>
       <div class="hpill" style="display:none"><svg width="24" height="24" viewBox="-12 -22 24 24" id="popArt"></svg>5</div>
       
     </div>
 
     <div class="side">
-      <button class="rbtn shopbtn" onclick="openShop()"><span id="chestIco"></span><span class="dot new">NEW</span></button>
       <button class="rbtn" onclick="openTasks()"><svg width="30" height="30" viewBox="0 0 30 30"><rect x="5" y="4" width="20" height="23" rx="4" fill="#60a5fa"/><rect x="10" y="2" width="10" height="5" rx="2" fill="#1e40af"/><path d="M9 13l2.5 2.5L16 11M9 20h12" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg><span class="dot">3</span></button>
       <button class="rbtn" id="hammerBtn" onclick="openCatalog('bar')"><svg width="34" height="34" viewBox="0 0 34 34"><path d="M6 30l11-11" stroke="#8b5a2b" stroke-width="5" stroke-linecap="round"/><path d="M14 9l7-5 9 9-5 7z" fill="#94a3b8"/><path d="M14 9l11 11" stroke="#64748b" stroke-width="2"/></svg></button>
     </div>
@@ -347,7 +345,7 @@ const PATCH={"bakery": {"l": [0.0026455026455026454, 0.7261904761904762], "r": [
 <script>
 /* ===================== аналитика ===================== */
 const P='8418', V='var6';
-const PROTO='game-12brands-shop'; // имя прототипа зашито: в репо 8418-N файл называется index.html
+const PROTO='game-12brands-noshop'; // имя прототипа зашито: в репо 8418-N файл называется index.html
 const STEPS=[
   ['Вход',[['banner','Клик по баннеру','click_banner'],['game','Открыли игру — «посмотрели»','page_view_game']]],
   ['Интерес к игре',[['pan','Двигали карту','map_pan'],['hint','Листали подсказки','hint_step'],['brand','Тап по зданию бренда','tap_brand'],['catalog','Открыли каталог зданий','open_catalog'],['build','Пытались построить','click_build'],['tasks','Открыли задания','open_tasks'],['codes','Открыли промокоды','open_codes'],['search','Искали бренд','search_brand'],['shop','Открыли лавку','open_shop'],['shopbuy','Хотели купить эксклюзив','click_shop_buy']]],
@@ -571,8 +569,7 @@ function initPan(){
 /* ===================== подсказки и шторки ===================== */
 const HINTS=[
   'Привет! Я Промик. Принесите <b>рабочий промокод</b> — получите 200 монет и постройте свой первый дом.',
-  'Это <b>Страна промиков</b>. Здесь вы можете найти промокоды, которые действительно работают — в разделе <b>«Промокоды»</b> или при клике на магазин.',
-  ()=>`Каждые 100 потраченных в городе монет превращаются в 1 рубин <img src="${IMG.icon_ruby}" style="height:18px;vertical-align:-4px"> — за них можно получить <b>особенные промокоды</b> от наших партнёров.`];
+  'Это <b>Страна промиков</b>. Здесь вы можете найти промокоды, которые действительно работают — в разделе <b>«Промокоды»</b> или при клике на магазин.'];
 let hintIdx=0;
 function showHint(i){hintIdx=i;const h=HINTS[i];const last=i===HINTS.length-1;
   setHint((typeof h==='function'?h():h)+`<div class="hnav"><span class="dots">${HINTS.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</span><span class="tap">${last?'нажмите, чтобы закрыть':'нажмите, чтобы продолжить'}</span></div>`);
@@ -830,8 +827,7 @@ function openCodes(){
   openSheet(`<h2>Промокоды</h2><p class="sub">Рабочие коды от жителей. Найдите бренд — и посмотрите, что уже принесли.</p>
    <div class="search"><img src="${IMG.icon_search}"><input id="q" placeholder="Название бренда" autocomplete="off" oninput="doSearch()"></div>
    <div class="qchips">${['Пятёрочка','Золотое Яблоко','Ozon','Самокат'].map(b=>`<button onclick="document.getElementById('q').value='${b}';doSearch()">${b}</button>`).join('')}</div>
-   <div id="res"></div>
-   <div class="exlink" onclick="openShop()"><img src="${IMG.icon_chest}" style="height:40px"><span>Лавка редкостей<small>Эксклюзивные коды от брендов за рубины</small></span>›</div>`);
+   <div id="res"></div>`);
   doSearch(true);
 }
 function brandRow(n,c){const inCity=BRANDS_IN_CITY.some(x=>x.name===n);
@@ -877,7 +873,6 @@ function openCodes(src){
    <div class="search"><img src="${IMG.icon_search}"><input id="q" placeholder="Найти бренд" autocomplete="off" oninput="doSearch()"></div>
    <div class="cats">${CATS.map(c=>`<button class="${c===cat?'on':''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>
    <div id="res"></div>
-   <div class="exlink" onclick="openShop()"><img src="${IMG.icon_chest}" style="height:40px"><span>Лавка редкостей<small>Эксклюзивные коды от брендов за рубины</small></span>›</div>
    <div class="reward" style="margin-top:12px">${coin(14)}<span>Знаете рабочий код, которого тут нет? Принесите — <b>+200 монет</b>.</span></div>
    <button class="btn" onclick="openForm('codes_page')">Принести промокод</button>`;
   p.classList.add('on'); doSearch(true);
@@ -988,8 +983,6 @@ function brandBuilding(i0,j0,br){
 }
 
 /* ===================== старт ===================== */
-document.getElementById('gemHud').src=IMG.icon_ruby;
-document.getElementById('chestIco').outerHTML=`<img src="${IMG.icon_chest}" style="height:36px">`;
 document.querySelectorAll('svg.coin').forEach(s=>{const h=+s.getAttribute('height');s.outerHTML=`<img src="${IMG.icon_coin}" style="height:${h+4}px">`});
 {document.getElementById('tkIco').outerHTML=`<img src="${IMG.icon_ticket}" style="height:48px;flex:none">`;const sb=document.querySelectorAll('.side .rbtn svg');sb[0].outerHTML=`<img src="${IMG.icon_tasks}" style="height:34px">`;
  document.querySelector('#hammerBtn svg').outerHTML=`<img src="${IMG.icon_hammer}" style="height:36px">`;}
@@ -1055,12 +1048,10 @@ if(!location.hash.slice(1)) openGame();
   const h=location.hash.slice(1); if(!h||h==='home') return;
   document.head.insertAdjacentHTML('beforeend','<style>.page,.sheet{transition:none!important}</style>');
   if(h==='hint2'){openGame();showHint(1);return;}
-  if(h==='hint3'){openGame();showHint(2);return;}
   openGame(); document.getElementById('mainBtn').classList.remove('pulse');
   if(h==='brand') openBrand('Пятёрочка');
   if(h==='catalog') openCatalog('plot');
   if(h==='tasks') openTasks();
-  if(h==='shop') openShop();
   if(h==='codes') openCodes('demo');
   if(h==='codesq'){openCodes('demo');document.getElementById('q').value='зол';doSearch();}
   if(h==='reveal'){openCodes('demo');viewCode(0);}
